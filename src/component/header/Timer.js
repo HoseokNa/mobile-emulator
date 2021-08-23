@@ -14,4 +14,7 @@ export default function Timer({ $header }) {
     this.state.time = getCurrentTime();
     this.render();
   }, 1000);
+
+  this.state.time = getCurrentTime();
+  this.render();
 }
