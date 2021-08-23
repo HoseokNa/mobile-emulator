@@ -1,8 +1,6 @@
-export default function Home({ $app, initialState }) {
+export default function Home({ $main, initialState }) {
   this.state = initialState;
-
-  this.$target = document.createElement('main');
-  $app.appendChild(this.$target);
+  this.$target = $main;
 
   this.setState = nextState => {
     this.state = nextState;
