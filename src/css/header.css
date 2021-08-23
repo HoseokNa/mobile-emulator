@@ -8,3 +8,7 @@ header {
 .back-button {
   margin-right: auto;
 }
+
+.new-button {
+  margin-left: auto;
+}

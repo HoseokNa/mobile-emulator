@@ -1,7 +1,8 @@
 import BackButton from './BackButton.js';
+import NewButton from './NewButton.js';
 import Timer from './Timer.js';
 
-export default function Header({ $app, initialState, backHome }) {
+export default function Header({ $app, initialState, backHome, addItem }) {
   this.state = initialState;
 
   this.$header = document.createElement('header');
@@ -13,12 +14,20 @@ export default function Header({ $app, initialState, backHome }) {
     onClick: backHome,
   });
   this.timer = new Timer({ $header: this.$header });
+  this.newButton = new NewButton({
+    $header: this.$header,
+    initialState: { newButtonDisplay: this.state.newButtonDisplay },
+    onClick: addItem,
+  });
 
   this.setState = nextState => {
     this.state = nextState;
 
     this.backButton.setState({
       backButtonDisplay: this.state.backButtonDisplay,
+    });
+    this.newButton.setState({
+      newButtonDisplay: this.state.newButtonDisplay,
     });
   };
 }

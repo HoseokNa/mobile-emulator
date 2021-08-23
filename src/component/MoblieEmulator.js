@@ -10,6 +10,7 @@ export default function MobileEmulator({ $app, initialState }) {
     const nextState = {
       ...this.state,
       backButtonDisplay: false,
+      newButtonDisplay: false,
       currentHome: true,
       currentAlarm: false,
     };
@@ -19,6 +20,8 @@ export default function MobileEmulator({ $app, initialState }) {
     $app,
     initialState: { backButtonDisplay: false },
     backHome: this.backHome,
+    addItem: () =>
+      console.log('알람일 때는 알람추가, 메모일 때는 메모 추가 기능 구현'),
   });
 
   this.$main = document.createElement('main');
@@ -34,6 +37,7 @@ export default function MobileEmulator({ $app, initialState }) {
             const nextState = {
               ...this.state,
               backButtonDisplay: true,
+              newButtonDisplay: true,
               currentHome: false,
               currentAlarm: true,
             };
@@ -71,6 +75,7 @@ export default function MobileEmulator({ $app, initialState }) {
 
     this.header.setState({
       backButtonDisplay: this.state.backButtonDisplay,
+      newButtonDisplay: this.state.newButtonDisplay,
     });
 
     if (this.state.currentHome) {
