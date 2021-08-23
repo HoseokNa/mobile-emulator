@@ -1,6 +1,8 @@
 export default function Home({ $main, initialState, runApp }) {
   this.state = initialState;
-  this.$target = $main;
+
+  this.$target = document.createElement('ul');
+  this.$target.className = 'app-list';
 
   this.setState = nextState => {
     this.state = nextState;
@@ -8,9 +10,12 @@ export default function Home({ $main, initialState, runApp }) {
   };
 
   this.render = () => {
-    this.$target.innerHTML = `<ul>${this.state.appData.map(
-      ({ name }) => `<li>${name}</li>`,
-    )}</ul>`;
+    $main.innerHTML = '';
+    $main.appendChild(this.$target);
+
+    this.$target.innerHTML = `${this.state.appData.map(
+      ({ name }) => `<li class="app-lis__item">${name}</li>`,
+    )}`;
   };
 
   this.$target.addEventListener('click', ({ target: { innerText } }) =>

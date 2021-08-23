@@ -6,7 +6,20 @@ import Home from './home/Home.js';
 export default function MobileEmulator({ $app, initialState }) {
   this.state = initialState;
 
-  this.header = new Header({ $app, initialState: {} });
+  this.backHome = () => {
+    const nextState = {
+      ...this.state,
+      backButtonDisplay: false,
+      currentHome: true,
+      currentAlarm: false,
+    };
+    this.setState(nextState);
+  };
+  this.header = new Header({
+    $app,
+    initialState: { backButtonDisplay: false },
+    backHome: this.backHome,
+  });
 
   this.$main = document.createElement('main');
   $app.appendChild(this.$main);
@@ -18,7 +31,13 @@ export default function MobileEmulator({ $app, initialState }) {
       switch (appName) {
         case APP_NAME.ALARM:
           {
-            this.alarmList.render();
+            const nextState = {
+              ...this.state,
+              backButtonDisplay: true,
+              currentHome: false,
+              currentAlarm: true,
+            };
+            this.setState(nextState);
           }
           break;
         case APP_NAME.MEMO:
@@ -34,6 +53,7 @@ export default function MobileEmulator({ $app, initialState }) {
       }
     },
   });
+
   this.alarmList = new AlarmList({
     $main: this.$main,
     initialState: { alarms: this.state.alarms },
@@ -49,6 +69,14 @@ export default function MobileEmulator({ $app, initialState }) {
   this.setState = nextState => {
     this.state = nextState;
 
-    this.alarmList.setState({ alarms: nextState.alarms });
+    this.header.setState({
+      backButtonDisplay: this.state.backButtonDisplay,
+    });
+
+    if (this.state.currentHome) {
+      this.home.setState({ appData: this.state.appData });
+    } else if (this.state.currentAlarm) {
+      this.alarmList.setState({ alarms: this.state.alarms });
+    }
   };
 }
