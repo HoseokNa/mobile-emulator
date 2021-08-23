@@ -1,4 +1,4 @@
-export default function Home({ $main, initialState }) {
+export default function Home({ $main, initialState, runApp }) {
   this.state = initialState;
   this.$target = $main;
 
@@ -12,6 +12,10 @@ export default function Home({ $main, initialState }) {
       ({ name }) => `<li>${name}</li>`,
     )}</ul>`;
   };
+
+  this.$target.addEventListener('click', ({ target: { innerText } }) =>
+    runApp(innerText),
+  );
 
   this.render();
 }
