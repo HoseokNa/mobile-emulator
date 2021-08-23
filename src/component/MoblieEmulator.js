@@ -1,4 +1,5 @@
 import { APP_NAME } from '../utils/constants.js';
+import AlarmList from './alarm/AlarmList.js';
 import Header from './header/Header.js';
 import Home from './home/Home.js';
 
@@ -17,7 +18,7 @@ export default function MobileEmulator({ $app, initialState }) {
       switch (appName) {
         case APP_NAME.ALARM:
           {
-            console.log('알람 실행');
+            this.alarmList.render();
           }
           break;
         case APP_NAME.MEMO:
@@ -33,4 +34,21 @@ export default function MobileEmulator({ $app, initialState }) {
       }
     },
   });
+  this.alarmList = new AlarmList({
+    $main: this.$main,
+    initialState: { alarms: this.state.alarms },
+    onClickRemoveButton: id => {
+      const nextAlarms = this.state.alarms.filter(alarm => alarm.id !== id);
+      console.log(nextAlarms);
+      const nextState = { ...this.state, alarms: nextAlarms };
+
+      this.setState(nextState);
+    },
+  });
+
+  this.setState = nextState => {
+    this.state = nextState;
+
+    this.alarmList.setState({ alarms: nextState.alarms });
+  };
 }
