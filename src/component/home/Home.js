@@ -13,9 +13,9 @@ export default function Home({ $main, initialState, runApp }) {
     $main.innerHTML = '';
     $main.appendChild(this.$target);
 
-    this.$target.innerHTML = `${this.state.appData.map(
-      ({ name }) => `<li class="app-lis__item">${name}</li>`,
-    )}`;
+    this.$target.innerHTML = `${this.state.appData
+      .map(({ name }) => `<li class="app-list__item">${name}</li>`)
+      .join('')}`;
   };
 
   this.$target.addEventListener('click', ({ target: { innerText } }) =>

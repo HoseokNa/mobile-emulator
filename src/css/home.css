@@ -1,0 +1,18 @@
+main {
+  background-color: #f43142;
+  height: 100%;
+}
+
+.app-list {
+  display: flex;
+  justify-content: space-around;
+  align-content: space-around;
+  height: 100%;
+}
+
+.app-list__item {
+  background-color: #f4f4f4;
+  height: 10%;
+  width: 10%;
+  text-align: center;
+}

@@ -1,0 +1,10 @@
+header {
+  background-color: #f43142;
+  color: white;
+  display: flex;
+  justify-content: center;
+}
+
+.back-button {
+  margin-right: auto;
+}
